@@ -1,98 +1,106 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# zad_podbroshu
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend-сервис на NestJS для приложения социального бесплатного такси. На текущем этапе проект находится в состоянии заготовки: в репозитории есть базовый каркас NestJS и черновая реализация сервиса поездок, но функциональность `rides` ещё не доведена до рабочего состояния.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Текущее состояние
 
-## Description
+- Базовый NestJS-приложение запускается через `src/main.ts`.
+- Активный и рабочий маршрут сейчас только один: `GET /` возвращает строку `Hello World!`.
+- В репозитории есть черновик домена поездок:
+  - [`src/rides/rides.controller.ts`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/rides/rides.controller.ts)
+  - [`src/rides/rides.service.ts`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/rides/rides.service.ts)
+  - [`src/rides/types.ts`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/rides/types.ts)
+- Домeн `rides` пока не подключён в [`src/app.module.ts`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/app.module.ts), поэтому его эндпоинты недоступны.
+- Сборка проекта сейчас падает из-за типовой ошибки в [`src/rides/rides.controller.ts:11`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/rides/rides.controller.ts:11): контроллер объявлен как синхронный, а сервис возвращает `Promise<Ride[]>`.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Технологии
 
-## Project setup
+- Node.js
+- TypeScript
+- NestJS 11
+- Jest
+- ESLint
+- Prettier
 
-```bash
-$ npm install
+## Структура проекта
+
+```text
+src/
+  app.controller.ts
+  app.module.ts
+  app.service.ts
+  main.ts
+  data/
+    rides.json
+  rides/
+    rides.controller.ts
+    rides.module.ts
+    rides.service.ts
+    types.ts
+test/
+  app.e2e-spec.ts
 ```
 
-## Compile and run the project
+## Установка
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+## Запуск
+
+```bash
+# обычный запуск
+npm run start
+
+# dev-режим с watch
+npm run start:dev
+
+# production-сборка и запуск
+npm run build
+npm run start:prod
+```
+
+Приложение слушает порт из `PORT`, если переменная задана. Иначе используется `3000`.
+
+## Тесты и проверка
 
 ```bash
 # unit tests
-$ npm run test
+npm test
 
 # e2e tests
-$ npm run test:e2e
+npm run test:e2e
 
-# test coverage
-$ npm run test:cov
+# coverage
+npm run test:cov
+
+# lint с автоисправлением
+npm run lint
 ```
 
-## Deployment
+Фактический статус проверки на момент анализа:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- `npm test -- --runInBand` проходит
+- `npm run build` не проходит
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Известные проблемы
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+1. `rides` не импортирован в `AppModule`, поэтому API поездок не опубликован.
+2. [`src/rides/rides.module.ts`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/rides/rides.module.ts) пустой.
+3. [`src/rides/rides.controller.ts`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/rides/rides.controller.ts) возвращает `Ride[]`, хотя сервис работает асинхронно и возвращает `Promise<Ride[]>`.
+4. [`src/rides/rides.service.ts`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/rides/rides.service.ts) читает данные из пути `./rides`, хотя подготовленный JSON-файл лежит в [`src/data/rides.json`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/src/data/rides.json).
+5. Контроллер `rides` реализует только `GET /rides`, хотя сервис уже содержит методы `getRideById`, `createRide`, `updateRideById` и `deleteRideById`.
+6. Тесты покрывают только корневой маршрут `GET /`, а домен поездок никак не проверяется.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Что имеет смысл сделать дальше
 
-## Resources
+1. Создать и подключить полноценный `RidesModule`.
+2. Исправить сигнатуры контроллера и довести проект до успешной сборки.
+3. Привести файловое хранилище к реальному пути и формату данных.
+4. Добавить CRUD-эндпоинты для поездок.
+5. Написать unit/e2e-тесты для `rides`.
 
-Check out a few resources that may come in handy when working with NestJS:
+## Дополнительный контекст
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Повторно использовать сведения о проекте удобнее из файла [`PROJECT_CONTEXT.md`](/Users/buttsurfer/Desktop/Projects/zad_podbroshu/PROJECT_CONTEXT.md).
