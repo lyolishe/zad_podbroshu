@@ -1,17 +1,15 @@
 import { randomUUID } from 'node:crypto';
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { Injectable } from '@nestjs/common';
 import { join } from 'node:path';
-import type {
-  CreateRideData,
-  Ride,
-  UpdateRideData,
-} from '../../domain/ride';
+import type { CreateRideData, Ride, UpdateRideData } from '../../domain/ride';
 import type { RidesRepository } from '../../application/rides.repository';
 
 @Injectable()
 export class FileRidesRepository implements RidesRepository {
-  private readonly filePath = join(process.cwd(), 'src', 'data', 'rides.json');
+  private readonly dataDirectory =
+    process.env.RIDES_DATA_DIR ?? join(process.cwd(), 'data');
+  private readonly filePath = join(this.dataDirectory, 'rides.json');
   private readonly initialized: Promise<void>;
   private rides: Ride[] = [];
 
@@ -78,6 +76,7 @@ export class FileRidesRepository implements RidesRepository {
   }
 
   private async syncStorage(): Promise<void> {
+    await mkdir(this.dataDirectory, { recursive: true });
     await writeFile(this.filePath, JSON.stringify(this.rides), 'utf8');
   }
 }
