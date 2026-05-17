@@ -16,7 +16,6 @@ import { RidesController } from './rides.controller';
     CreateRideUseCase,
     UpdateRideUseCase,
     DeleteRideUseCase,
-    FileRidesRepository,
     {
       provide: RIDES_REPOSITORY,
       useExisting: FileRidesRepository,
