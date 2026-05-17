@@ -17,7 +17,7 @@ FROM node:22-slim AS production
 
 ENV NODE_ENV=production
 ENV PORT=3001
-ENV RIDES_DATA_DIR=/app/data
+ENV DATA_DIR=/app/data
 
 WORKDIR /app
 
