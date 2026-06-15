@@ -7,9 +7,9 @@ export enum OrderStatus {
 
 export interface Order {
   id: string;
+  rideId: string;
   from: string;
   to: string;
-  passenger_n: number;
   status: OrderStatus;
   date: string;
   time: string;

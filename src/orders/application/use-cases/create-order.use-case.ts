@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ORDERS_REPOSITORY_TOKEN } from '../orders.repository';
 import type { OrdersRepository } from '../orders.repository';
-import { CreateOrderData, Order } from '../../domain/ride';
+import { CreateOrderData, Order } from '../../domain/order';
 
 @Injectable()
 export class CreateOrderUseCase {

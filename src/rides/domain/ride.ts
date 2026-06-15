@@ -17,3 +17,10 @@ export interface Ride {
 
 export type CreateRideData = Omit<Ride, 'id' | 'status'>;
 export type UpdateRideData = Omit<Ride, 'id'>;
+
+export interface SuitedRequestDto {
+  from: string;
+  to: string;
+  date: string;
+  time: string;
+}

@@ -1,7 +1,7 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ORDERS_REPOSITORY_TOKEN } from '../orders.repository';
 import type { OrdersRepository } from '../orders.repository';
-import { Order } from '../../domain/ride';
+import { Order } from '../../domain/order';
 import { OrderNotFoundError } from '../../domain/errors/order-not-found.error';
 
 @Injectable()

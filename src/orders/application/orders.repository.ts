@@ -1,4 +1,4 @@
-import { CreateOrderData, Order, UpdateOrderData } from '../domain/ride';
+import { CreateOrderData, Order, UpdateOrderData } from '../domain/order';
 
 export const ORDERS_REPOSITORY_TOKEN = Symbol('ORDERS_REPOSITORY_TOKEN');
 

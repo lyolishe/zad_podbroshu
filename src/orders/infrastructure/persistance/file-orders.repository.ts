@@ -3,7 +3,7 @@ import {
   CreateOrderData,
   UpdateOrderData,
   OrderStatus,
-} from 'src/orders/domain/ride';
+} from 'src/orders/domain/order';
 import { OrdersRepository } from '../../application/orders.repository';
 import { Injectable } from '@nestjs/common';
 import { join } from 'node:path';
